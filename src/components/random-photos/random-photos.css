@@ -1,0 +1,13 @@
+.images-list {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 50px;
+  align-items: center;
+}
+
+.images-list img {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+}
+
