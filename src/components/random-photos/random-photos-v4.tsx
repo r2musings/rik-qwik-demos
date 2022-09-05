@@ -67,35 +67,34 @@ export const RandomPhotos = component$((props: { imageCount?: number }) => {
 });
 
 export const Photo = component$((props: { imageSpec: ImageSpec }) => {
-  const { name, width, height, category, filter } = props.imageSpec;
+  //const { name, width, height, category, filter } = props.imageSpec;
+  const name = props.imageSpec.name;
   const imageRef = useRef();
 
-  const store = useStore({
-    url: undefined as string | undefined,
-  });
+  // const store = useStore({
+  //   url: undefined as string | undefined,
+  // });
 
-  useClientEffect$(() => {
-    store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-    //imageRef.current?.setAttribute("src", store.url);
-  });
+  // useClientEffect$(() => {
+  //   store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
+  //   imageRef.current?.setAttribute("src", store.url);
+  // });
 
+  
   return (
-    <div
-      onQVisible$={() => {
-        (<img
-          ref={imageRef}
-          id={name}
-          alt={name}
-          onClick$={() => console.log(`Clicked ${name}`)}
-          src={store.url}
-        />);
-      }}
+    <img
+      ref={imageRef}
+      id="{name}"
+      alt={name}
+      onClick$={() => console.log(`Clicked ${name}`)}
+      loading="lazy"
+      onQVisible$={() => addSrc(props.imageSpec, imageRef)}
     />
   );
 });
 
-// export const addSrc = (imageSpec: ImageSpec, imageRef: Ref<Element>) => {
-//   const { width, height, category, filter } = imageSpec;
-//   const url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-//   url && imageRef.current?.setAttribute("src", url);
-// };
+export const addSrc = (imageSpec: ImageSpec, imageRef: Ref<Element>) => {
+  const { width, height, category, filter } = imageSpec;
+  const url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
+  url && imageRef.current?.setAttribute("src", url);
+}
