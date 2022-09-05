@@ -65,9 +65,7 @@ export const RandomPhotos = component$((props: { imageCount?: number }) => {
 });
 
 export const Photo = component$((props: { imageSpec: ImageSpec }) => {
-  const { name, category, filter } = props.imageSpec;
-  const width = props.imageSpec.width || 250;
-  const height = props.imageSpec.height || 250;
+  const { name, width, height, category, filter } = props.imageSpec;
   const imageRef = useRef();
 
   const store = useStore({
