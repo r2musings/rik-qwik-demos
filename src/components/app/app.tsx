@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { ButtonBunch } from '../button-bunch/button-bunch';
-import { RandomPhotos } from '../random-photos/random-photos';
+import { RandomPhotos } from '../random-photos/random-photos-v3';
 
 export const App = component$(() => {
   
@@ -9,7 +9,7 @@ export const App = component$(() => {
       <h1>Buttons and Photos</h1>
       
       <ButtonBunch buttonCount={50} />
-      
+
       <RandomPhotos imageCount={25} />
 
     </div>

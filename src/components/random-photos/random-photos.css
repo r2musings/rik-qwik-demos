@@ -9,5 +9,9 @@
     align-items: center;
     display: flex;
     cursor: pointer;
+    min-width: 225px;
+    max-width: 325px;
+    min-height: 225px;
+    max-height: 325px;
 }
 
