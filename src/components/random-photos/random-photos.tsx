@@ -15,7 +15,7 @@ export const RandomPhotos = component$((props: { imageCount?: number }) => {
   const count = props.imageCount || defaultImageCount;
   const Filters = ["grayscale", "sepia", "none"];
   const Categories = ["animals", "people", "arch", "nature"];
-  
+
   useStyles$(styles);
 
   const defaultSpecs: ImageSpec[] = [];
@@ -57,8 +57,7 @@ export const RandomPhotos = component$((props: { imageCount?: number }) => {
   );
 });
 
-// lite component
-export const Photo = (props: { name: string; url: string }) => {
+export const Photo = component$((props: { name: string; url: string }) => {
   return (
     <img
       alt={props.name}
@@ -66,13 +65,5 @@ export const Photo = (props: { name: string; url: string }) => {
       src={props.url}
     />
   );
-};
+});
 
-// standard Qwik component
-// export const Photo = component$((props: { imageSpec: ImageSpec }) => {
-//   const { name, width, height, category, filter } = props.imageSpec;
-//   const url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-//   return (
-//     <img alt={name} onClick$={() => console.log(`Clicked ${name}`)} src={url} />
-//   );
-// });
