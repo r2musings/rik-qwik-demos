@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { ButtonBunch } from '../button-bunch/button-bunch';
-import { RandomPhotos } from '../random-photos/random-photos-v3';
+import { RandomPhotos } from '../random-photos/random-photos-v4';
 
 export const App = component$(() => {
   

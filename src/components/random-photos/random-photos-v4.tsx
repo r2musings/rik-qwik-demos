@@ -4,8 +4,7 @@ import {
   useStyles$,
   useStore,
   useRef,
-  useWatch$,
-  Ref,
+  Ref
 } from "@builder.io/qwik";
 import styles from "./random-photos.css";
 
@@ -77,17 +76,15 @@ export const Photo = component$((props: { imageSpec: ImageSpec }) => {
 
   // useClientEffect$(() => {
   //   store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-  //   imageRef.current?.setAttribute("src", store.url);
+  //   //  imageRef.current?.setAttribute("src", store.url);
   // });
 
-  
   return (
     <img
       ref={imageRef}
       id="{name}"
       alt={name}
       onClick$={() => console.log(`Clicked ${name}`)}
-      loading="lazy"
       onQVisible$={() => addSrc(props.imageSpec, imageRef)}
     />
   );
@@ -95,6 +92,7 @@ export const Photo = component$((props: { imageSpec: ImageSpec }) => {
 
 export const addSrc = (imageSpec: ImageSpec, imageRef: Ref<Element>) => {
   const { width, height, category, filter } = imageSpec;
+  console.log("addSrc called");
   const url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
   url && imageRef.current?.setAttribute("src", url);
-}
+};
