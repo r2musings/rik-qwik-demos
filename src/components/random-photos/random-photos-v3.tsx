@@ -4,6 +4,7 @@ import {
   useStyles$,
   useStore,
   useRef,
+  useWatch$,
 } from "@builder.io/qwik";
 import styles from "./random-photos.css";
 
@@ -74,7 +75,12 @@ export const Photo = component$((props: { imageSpec: ImageSpec }) => {
 
   useClientEffect$(() => {
     store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-    imageRef.current?.setAttribute("src", store.url);
+    
+  });
+
+  useWatch$(({ track }) => {
+    const url = track(store, 'url');
+    url && imageRef.current?.setAttribute("src", url);
   });
 
   return (
