@@ -75,12 +75,7 @@ export const Photo = component$((props: { imageSpec: ImageSpec }) => {
 
   useClientEffect$(() => {
     store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-    
-  });
-
-  useWatch$(({ track }) => {
-    const url = track(store, 'url');
-    url && imageRef.current?.setAttribute("src", url);
+    imageRef.current?.setAttribute("src", store.url);
   });
 
   return (
