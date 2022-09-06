@@ -80,8 +80,7 @@ export const Photo = component$((props: { imageSpec: ImageSpec }) => {
       ref={imageRef}
       id="{name}"
       alt={name}
-      onClick$={() => console.log(`Clicked ${name}`)}
-      loading="lazy"
+      onClick$={() => console.log(`Clicked ${name}`)}      
     />
   );
 });
