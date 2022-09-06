@@ -30,30 +30,28 @@ export const RandomPhotos = component$((props: { imageCount?: number }) => {
     imageSpecs: defaultSpecs,
   });
 
-  useClientEffect$(() => {
-    const createImageSpec = (imageName: string) => {
-      const imageSpec: ImageSpec = {
-        name: imageName,
-        filter: Filters[Math.floor(Math.random() * Filters.length)],
-        category: Categories[Math.floor(Math.random() * Categories.length)],
-        width: Math.floor(
-          Math.random() * (maxImageDim - minImageDim + 1) + minImageDim
-        ),
-        height: Math.floor(
-          Math.random() * (maxImageDim - minImageDim + 1) + minImageDim
-        ),
-      };
-      return imageSpec;
+  const createImageSpec = (imageName: string) => {
+    const imageSpec: ImageSpec = {
+      name: imageName,
+      filter: Filters[Math.floor(Math.random() * Filters.length)],
+      category: Categories[Math.floor(Math.random() * Categories.length)],
+      width: Math.floor(
+        Math.random() * (maxImageDim - minImageDim + 1) + minImageDim
+      ),
+      height: Math.floor(
+        Math.random() * (maxImageDim - minImageDim + 1) + minImageDim
+      ),
     };
-    const createImageSpecs = () => {
-      const result = [];
-      for (let i = 0; i < count; i++) {
-        result.push(createImageSpec(`Image ${i + 1}`));
-      }
-      return result;
-    };
-    store.imageSpecs = createImageSpecs();
-  });
+    return imageSpec;
+  };
+  const createImageSpecs = () => {
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      result.push(createImageSpec(`Image ${i + 1}`));
+    }
+    return result;
+  };
+  store.imageSpecs = createImageSpecs();
 
   return (
     <div class="images-list">
@@ -69,14 +67,14 @@ export const Photo = component$((props: { imageSpec: ImageSpec }) => {
   const imageRef = useRef();
 
   const store = useStore({
-     url: undefined as string | undefined,
+    url: undefined as string | undefined,
   });
 
-   useClientEffect$(() => {
-     store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-     imageRef.current?.setAttribute("src", store.url);
-   });
-  
+  useClientEffect$(() => {
+    store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
+    imageRef.current?.setAttribute("src", store.url);
+  });
+
   return (
     <img
       ref={imageRef}
