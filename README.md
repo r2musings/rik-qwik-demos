@@ -1,8 +1,16 @@
 # Qwik rik-qwik-demos ⚡️
 
-- Blank Qwik starter app.
-- Vite.js tooling.
-- Prettier code formatter.
+- Various demos for upcoming talk on Qwik.
+
+## Components
+
+### ButtonBunch
+
+Demo to show lazy-loading of handlers for the various events and then how they are shared between the other buttons once they are downloaded.
+
+### RandomPhotos
+
+Demo to show below-the-fold lazy-loading of content (photos) as they come into view. When used below a ButtonBunch (or other content that puts it initially below-the-fold), the code for the entire component is lazy-loaded when it first comes into view and continues to lazy-load each child component as they become visible.
 
 ## Development Builds
 
