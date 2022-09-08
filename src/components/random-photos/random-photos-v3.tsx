@@ -15,6 +15,7 @@ type ImageSpec = {
   filter: string;
 };
 
+// This version lazy-loads each photo as it is needed
 export const RandomPhotos = component$((props: { imageCount?: number }) => {
   const maxImageDim = 325;
   const minImageDim = 225;

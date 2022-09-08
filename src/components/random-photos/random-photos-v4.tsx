@@ -16,6 +16,7 @@ type ImageSpec = {
   filter: string;
 };
 
+// this is an attempt at using onQVisible - currently does not load the images
 export const RandomPhotos = component$((props: { imageCount?: number }) => {
   const maxImageDim = 325;
   const minImageDim = 225;

@@ -3,12 +3,19 @@ import {
   useClientEffect$,
   useStyles$,
   useStore,
+  useRef,
 } from "@builder.io/qwik";
 import styles from "./random-photos.css";
 
-export const RandomPhotos = component$((props: { imageCount?: number }) => {
-  type ImageSpec = { url: string; name: string };
+type ImageSpec = {
+  name: string;
+  width: number;
+  height: number;
+  category: string;
+  filter: string;
+};
 
+export const RandomPhotos = component$((props: { imageCount?: number }) => {
   const maxImageDim = 325;
   const minImageDim = 225;
   const defaultImageCount = 60;
@@ -23,47 +30,57 @@ export const RandomPhotos = component$((props: { imageCount?: number }) => {
     imageSpecs: defaultSpecs,
   });
 
-  useClientEffect$(() => {
-    const createImage = (imageName: string) => {
-      const filter = Filters[Math.floor(Math.random() * Filters.length)];
-      const category =
-        Categories[Math.floor(Math.random() * Categories.length)];
-
-      const width = Math.floor(
+  const createImageSpec = (imageName: string) => {
+    const imageSpec: ImageSpec = {
+      name: imageName,
+      filter: Filters[Math.floor(Math.random() * Filters.length)],
+      category: Categories[Math.floor(Math.random() * Categories.length)],
+      width: Math.floor(
         Math.random() * (maxImageDim - minImageDim + 1) + minImageDim
-      );
-      const height = Math.floor(
+      ),
+      height: Math.floor(
         Math.random() * (maxImageDim - minImageDim + 1) + minImageDim
-      );
-      const url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
-      return { url: url, name: imageName };
+      ),
     };
-    const createImageSpecs = () => {
-      const result = [];
-      for (let i = 0; i < count; i++) {
-        result.push(createImage(`Image ${i + 1}`));
-      }
-      return result;
-    };
-    store.imageSpecs = createImageSpecs();
-  });
+    return imageSpec;
+  };
+  const createImageSpecs = () => {
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      result.push(createImageSpec(`Image ${i + 1}`));
+    }
+    return result;
+  };
+  store.imageSpecs = createImageSpecs();
 
   return (
     <div class="images-list">
-      {store.imageSpecs.map((image) => (
-        <Photo name={image.name} url={image.url} />
+      {store.imageSpecs.map((imageSpec) => (
+        <Photo imageSpec={imageSpec} />
       ))}
     </div>
   );
 });
 
-export const Photo = component$((props: { name: string; url: string }) => {
+export const Photo = component$((props: { imageSpec: ImageSpec }) => {
+  const { name, width, height, category, filter } = props.imageSpec;
+  const imageRef = useRef();
+
+  const store = useStore({
+    url: undefined as string | undefined,
+  });
+
+  useClientEffect$(() => {
+    store.url = `http://placeimg.com/${width}/${height}/${category}/${filter}`;
+    imageRef.current?.setAttribute("src", store.url);
+  });
+
   return (
     <img
-      alt={props.name}
-      onClick$={() => console.log(`Clicked ${props.name}`)}
-      src={props.url}
+      ref={imageRef}
+      id="{name}"
+      alt={name}
+      onClick$={() => console.log(`Clicked ${name}`)}      
     />
   );
 });
-
